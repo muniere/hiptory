@@ -1,0 +1,44 @@
+<div class="page-settings" data-ng-init="init()">
+  <div class="col-md-3 dashboard">
+    <hi-dashboard active="rooms"></hi-dashboard>
+  </div>
+  <div class="col-md-9 settings">
+    <h2 class="pull-left">Rooms</h2>
+
+    <button class="btn btn-info btn-lhead" data-ng-click="addRoom()">New Room</button>
+
+    <div class="clearfix"></div>
+
+    <div class="room-settings" data-ng-if="ready && (rooms && rooms.length > 0)">
+      <div class="row room-head">
+        <div class="col-md-1 room-number"><strong>#</strong></div>
+        <div class="col-md-2 room-id"><strong>ID</strong></div>
+        <div class="col-md-8 room-name"><strong>Name</strong></div>
+        <div class="col-md-1 room-action"><strong>Action</strong></div>
+      </div>
+      <div class="row room-body" data-ng-repeat="room in rooms track by $index">
+        <div class="col-md-1 room-number">{{$index + 1}}</div>
+        <div class="col-md-2 room-id">{{room.id}}</div>
+        <div class="col-md-8 room-name">{{room.name}}</div>
+        <div class="col-md-1 room-action"><a href="#" data-ng-click="delRoom(room)">delete</a></div>
+      </div>
+    </div>
+    <div class="no-rooms" data-ng-if="ready && (!rooms || rooms.length <= 0)">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Information</h3>
+        </div>
+        <div class="panel-body">No rooms configured</div>
+      </div>
+    </div>
+    <div class="some-errors" data-ng-if="error">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Error</h3>
+        </div>
+        <div class="panel-body">Some error occurred</div>
+      </div>
+    </div>
+    <div data-ng-activity-indicator="CircledDark" data-ng-if="!ready && !error"></div>
+  </div>
+</div>

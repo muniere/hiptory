@@ -1,0 +1,25 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">Add New Room</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-md-2">Room ID</label>
+
+            <div class="col-md-10">
+              <input class="form-control" type="text" data-ng-model="binding.room.id">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-ng-click="$hide()">Cancel</button>
+        <button type="submit" class="btn btn-primary" data-ng-click="doAddRoom(binding.room.id)">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

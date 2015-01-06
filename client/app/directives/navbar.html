@@ -1,0 +1,11 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Hiptory</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right" data-ng-if="hasTicket()">
+      <li><a href="/settings">Settings</a></li>
+      <li><a href="#" data-ng-click="logout()">Logout</a></li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,209 @@
+#!/usr/bin/env node
+'use strict';
+
+/*
+ * dependencies
+ */
+var Promise = require('bluebird');
+
+var fs = Promise.promisifyAll(require('fs'));
+var path = Promise.promisifyAll(require('path'));
+var mkdirp = Promise.promisify(require('mkdirp'));
+var rimraf = Promise.promisify(require('rimraf'));
+var program = require('commander');
+var hiptory = require('../');
+
+/*
+ * consts
+ */
+var ROOT_DIRECTORY = path.join(process.env.HOME, '.hiptory');
+
+/*
+ * globals
+ */
+var emitted = false;
+
+var version;
+try {
+  version = require('../package.json').version;
+} catch(e) {
+  // do nothing
+}
+
+var $$ = {
+
+  /**
+   * Setup.
+   */
+  setup: function() {
+    emitted = true;
+
+    return Promise.resolve()
+      .then(function() {
+        return $$.mkdir();
+      })
+      .then(function() {
+        return $$.create();
+      });
+  },
+
+  /**
+   * Teardown.
+   */
+  teardown: function() {
+    emitted = true;
+
+    return Promise.resolve()
+      .then(function() {
+        return $$.drop();
+      })
+      .then(function() {
+        return $$.rmdir();
+      });
+  },
+
+  /**
+   * Make directory.
+   */
+  mkdir: function() {
+    emitted = true;
+
+    if (!fs.existsSync(ROOT_DIRECTORY)) {
+      return mkdirp(ROOT_DIRECTORY).then(function() {
+        hiptory.logger.general.info('Created a directory: ' + ROOT_DIRECTORY);
+      }).catch(function(err) {
+        hiptory.logger.error.error(err);
+      });
+    } else {
+      return Promise.resolve().then(function() {
+        hiptory.logger.general.info('Directory already exists: ' + ROOT_DIRECTORY);
+      });
+    }
+  },
+
+  /**
+   * Delete directory.
+   */
+  rmdir: function() {
+    emitted = true;
+
+    if (fs.existsSync(ROOT_DIRECTORY)) {
+      return rimraf(ROOT_DIRECTORY).then(function() {
+        hiptory.logger.general.info('Deleted a directory: ' + ROOT_DIRECTORY);
+      }).catch(function(err) {
+        hiptory.logger.error.error(err);
+      });
+    } else {
+      return Promise.resolve().then(function() {
+        hiptory.logger.general.info('Directory not exists: ' + ROOT_DIRECTORY);
+      });
+    }
+  },
+
+  /**
+   * Create database.
+   */
+  create: function() {
+    emitted = true;
+
+    return hiptory.sync().then(function() {
+      hiptory.logger.general.info('Created tables');
+    }).catch(function(err) {
+      hiptory.logger.error.error(err);
+    });
+  },
+
+  /**
+   * Drop database.
+   */
+  drop: function() {
+    emitted = true;
+
+    return hiptory.drop().then(function() {
+      hiptory.logger.general.info('Dropped tables');
+    }).catch(function(err) {
+      hiptory.logger.error.error(err);
+    });
+  },
+
+  /**
+   * Start server.
+   */
+  start: function() {
+    emitted = true;
+
+    return hiptory.start().then(function() {
+      hiptory.logger.general.info('Express server started');
+      hiptory.logger.general.info('Open http://localhost:%d on your browser', hiptory.config.port);
+    }).catch(function(err) {
+      hiptory.logger.error.error(err);
+    });
+  },
+
+  /**
+   * Stop server.
+   */
+  stop: function() {
+    emitted = true;
+
+    return hiptory.stop().then(function() {
+      hiptory.logger.general.info('Express server stopped');
+    }).catch(function(err) {
+      hiptory.logger.error.error(err);
+    });
+  }
+};
+
+program
+  .command('setup')
+  .description('setup directories and database')
+  .action(function() {
+    return $$.setup();
+  });
+
+program
+  .command('teardown')
+  .description('teardown directories and tables')
+  .action(function() {
+    return $$.teardown();
+  });
+
+program
+  .command('create')
+  .description('create database')
+  .action(function() {
+    return $$.create();
+  });
+
+program
+  .command('drop')
+  .description('drop database')
+  .action(function() {
+    return $$.drop();
+  });
+
+program
+  .command('start')
+  .description('start hiptory server')
+  .action(function() {
+    return $$.start();
+  });
+
+program
+  .command('stop')
+  .description('stop hiptory server')
+  .action(function() {
+    return $$.stop();
+  });
+
+program
+  .version(version)
+  .usage('<command>')
+  .parse(process.argv);
+
+// no commands matched
+if (!emitted) {
+  program.help();
+}
+
+// vim: ft=javascript sw=2 ts=2 sts=2

@@ -1,0 +1,38 @@
+<div class="page-settings" data-ng-init="init()">
+  <div class="col-md-3 dashboard">
+    <hi-dashboard active="others"></hi-dashboard>
+  </div>
+  <div class="col-md-9 settings">
+    <h2 class="pull-left">Others</h2>
+
+    <div class="clearfix"></div>
+
+    <form class="form-horizontal" data-ng-if="ready">
+      <div class="form-group">
+        <label class="control-label col-md-2">Notification</label>
+
+        <div class="col-md-10 checkbox">
+          <label>
+            <input type="checkbox" value="true"
+                   data-ng-model="settings.notification"
+                   data-ng-checked="settings.notification">Include notification messages (from github, jenkins, etc.)
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+          <button class="btn btn-primary" type="submit" data-ng-click="update()">update</button>
+        </div>
+      </div>
+    </form>
+    <div class="some-errors" data-ng-if="error">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Error</h3>
+        </div>
+        <div class="panel-body">Some error occurred</div>
+      </div>
+    </div>
+    <div data-ng-activity-indicator="CircledDark" data-ng-if="!ready && !error"></div>
+  </div>
+</div>

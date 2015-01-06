@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <base href="/">
+    <title>Hiptory</title>
+    <% if @isDev : %>
+    <link href="/public/styles/_components.css" rel="stylesheet">
+    <link href="/public/styles/hiptory.css" rel="stylesheet">
+    <% else if @isPrd : %>
+    <link href="/public/styles/hiptory.min.css" rel="stylesheet">
+    <% end %>
+  </head>
+  <body ng-app="hiptory">
+    <hi-navbar></hi-navbar>
+    <div class="container content" ng-view=""></div>
+    <div class="container footer">
+      <hr />
+      <div class="text-center">&copy; Hiptory 2014</div>
+    </div>
+    <% if @isDev : %>
+    <script src="/public/scripts/_components.js"></script>
+    <script src="/public/scripts/hiptory.js"></script>
+    <% else if @isPrd : %>
+    <script src="/public/scripts/hiptory.min.js"></script>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+h1, h2, h3 {
+  margin-bottom: 20px;
+  margin-top: 20px; }
+
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0; }
+
+.content {
+  margin-top: 60px; }
+
+.content-fixed {
+  margin-top: 60px; }
+
+.footer {
+  color: #aeaeae; }
+  .footer hr {
+    margin: 15px 0; }
+
+.alert.top-right {
+  padding: 10px 15px; }
+
+.modal-dialog .form-group:last-of-type {
+  margin-bottom: 0; }
+.modal-dialog .modal-header {
+  border-bottom: 0; }
+.modal-dialog .modal-footer {
+  border-top: 0; }
+
+.page-auth .auth-form {
+  border-left: 1px solid #fafafa;
+  padding: 80px 0; }
+
+.page-message .ai-indicator {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative; }
+.page-message .table {
+  margin-bottom: 0; }
+  .page-message .table > thead > tr > th, .page-message .table > thead > tr > td, .page-message .table > tbody > tr > th, .page-message .table > tbody > tr > td, .page-message .table > tfoot > tr > th, .page-message .table > tfoot > tr > td {
+    white-space: pre-wrap; }
+.page-message .pager-fixed {
+  background-color: #fff;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 50px; }
+.page-message .pager .current input {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-decoration: none; }
+  .page-message .pager .current input:focus {
+    outline: none; }
+.page-message .datepicker {
+  padding: 5px; }
+.page-message .messages {
+  font-family: monospace; }
+.page-message .message-room {
+  min-width: 10em; }
+.page-message .message-time {
+  min-width: 8em;
+  text-align: center; }
+
+.page-settings .ai-indicator {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative; }
+.page-settings .dashboard {
+  margin-top: 15px; }
+.page-settings .settings {
+  padding-left: 30px; }
+.page-settings .room-head, .page-settings .room-body {
+  margin: 0;
+  padding: 10px 15px; }
+.page-settings .room-body {
+  border-top: 1px dotted #cecece; }
+.page-settings .room-delete {
+  padding: 0 24px; }
+.page-settings .btn-lhead {
+  float: left;
+  left: 30px;
+  position: relative;
+  top: 20px; }

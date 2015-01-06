@@ -1,0 +1,49 @@
+<div class="page-message" data-ng-init="init()">
+  <div class="pager-fixed">
+    <div class="container">
+      <ul class="pager">
+        <li class="previous">
+          <a data-ng-href="/messages/{{moment(prev).format('YYYY/MM/DD')}}">
+            &larr; {{moment(prev).format('YYYY/MM/DD')}}</a>
+        </li>
+        <li class="current">
+          <a href="#" class="btn-link" data-ng-model="date" data-date-format="yyyy/MM/dd" bs-datepicker>
+            {{moment(date).format('YYYY/MM/DD')}} <span class="glyphicon glyphicon-calendar"></span>
+          </a>
+        </li>
+        <li class="next">
+          <a data-ng-href="/messages/{{moment(next).format('YYYY/MM/DD')}}">
+            {{moment(next).format('YYYY/MM/DD')}} &rarr;
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-fixed">
+    <table class="table messages" data-ng-if="ready && messages.length > 0">
+      <tr class="message-row" data-ng-repeat="message in messages">
+        <td class="message-room">{{message.roomName}}</td>
+        <td class="message-time">{{message.time}}</td>
+        <td class="message-body" data-ng-bind-html="message.body"></td>
+      </tr>
+    </table>
+    <div class="no-messages" data-ng-if="ready && messages.length <= 0">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Information</h3>
+        </div>
+        <div class="panel-body">No messages found</div>
+      </div>
+    </div>
+    <div class="some-errors" data-ng-if="error">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Error</h3>
+        </div>
+        <div class="panel-body">Some error occurred</div>
+      </div>
+    </div>
+    <div data-ng-activity-indicator="CircledDark" data-ng-if="!ready && !error"></div>
+  </div>
+</div>
